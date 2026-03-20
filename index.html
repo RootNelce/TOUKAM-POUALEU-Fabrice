@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Fabrice TOUKAM POUALEU</title>
-    <!-- Tailwind CSS pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#06b6d4', // Cyan (Cyber)
-                        dark: '#0f172a',    // Slate 900 (Fond principal)
-                        card: '#1e293b'     // Slate 800 (Fond secondaire pour créer du contraste)
+                        primary: '#06b6d4',
+                        dark: '#0f172a',
+                        card: '#1e293b'
                     },
-                    animation: {
-                        fadeIn: 'fadeIn 0.4s ease-out forwards',
-                    },
+                    animation: { fadeIn: 'fadeIn 0.4s ease-out forwards' },
                     keyframes: {
                         fadeIn: {
                             '0%': { opacity: '0', transform: 'translateY(15px)' },
@@ -33,27 +29,61 @@
     <style>
         html { scroll-behavior: smooth; }
         .mobile-menu-open { overflow: hidden; }
+        
+        /* --- SYSTÈME DE SLIDER D'ARRIÈRE-PLAN --- */
+        .bg-slider-container {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .slide.active { opacity: 1; }
+        
+        /* Filtre sombre pour protéger la lisibilité du texte */
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.85); /* Fond sombre uniforme pour le contraste */
+            z-index: 1;
+        }
+        
+        /* Le contenu doit toujours être au-dessus du slider */
+        .content-layer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-section { min-height: 100vh; position: relative; }
     </style>
 </head>
 <body class="bg-dark text-gray-300 font-sans antialiased selection:bg-primary selection:text-white">
 
     <!-- Barre de contact flottante -->
     <div class="fixed right-2 md:right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 md:gap-4 z-[100]">
-        <a href="https://linkedin.com/in/fabrice-leonel-toukam-poualeu-b47b8425a" target="_blank" class="w-10 h-10 md:w-12 md:h-12 bg-card/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
+        <a href="https://linkedin.com/in/fabrice-leonel-toukam-poualeu-b47b8425a" target="_blank" class="w-10 h-10 md:w-12 md:h-12 bg-card/90 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
             <i class="fa-brands fa-linkedin-in text-lg md:text-xl"></i>
             <span class="absolute right-14 bg-card border border-slate-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">LinkedIn</span>
         </a>
-        <a href="mailto:leonel.toukam@icloud.com" class="w-10 h-10 md:w-12 md:h-12 bg-card/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
+        <a href="mailto:leonel.toukam@icloud.com" class="w-10 h-10 md:w-12 md:h-12 bg-card/90 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
             <i class="fa-regular fa-envelope text-lg md:text-xl"></i>
             <span class="absolute right-14 bg-card border border-slate-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">Email</span>
         </a>
-        <a href="tel:0764813149" class="w-10 h-10 md:w-12 md:h-12 bg-card/80 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
+        <a href="tel:0764813149" class="w-10 h-10 md:w-12 md:h-12 bg-card/90 backdrop-blur-sm border border-slate-700 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all transform hover:scale-110 group relative">
             <i class="fa-solid fa-phone text-lg md:text-xl"></i>
             <span class="absolute right-14 bg-card border border-slate-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">Appeler</span>
         </a>
     </div>
 
-    <!-- Barre de navigation -->
+    <!-- Navigation -->
     <nav class="fixed w-full bg-dark/95 backdrop-blur-md border-b border-slate-800 shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -87,22 +117,28 @@
         </div>
     </nav>
 
-    <!-- Section Accueil -->
-    <section id="accueil" class="page-section block pt-32 pb-20 md:pt-48 md:pb-32 px-4 text-center min-h-screen flex flex-col justify-center">
-        <div class="max-w-4xl mx-auto">
+    <!-- SECTION ACCUEIL -->
+    <section id="accueil" class="page-section block pt-32 pb-20 md:pt-48 md:pb-32 px-4 text-center flex flex-col justify-center">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1551288049-bbbda536ad89?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-4xl mx-auto content-layer">
             <h1 class="text-3xl md:text-6xl font-bold text-white mb-6">
                 Bonjour, je suis <span class="text-primary drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]">Fabrice</span>
             </h1>
             <p class="text-lg md:text-2xl text-gray-400 mb-6">
                 <span class="text-gray-200 font-semibold">Ingénieur en Cybersécurité et Business Unit Management</span>.
             </p>
-            <p class="text-md md:text-lg text-primary font-medium mb-10 bg-primary/10 border border-primary/20 inline-block px-5 py-2 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <p class="text-md md:text-lg text-primary font-medium mb-10 bg-primary/10 border border-primary/20 inline-block px-5 py-2 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-sm">
                 <i class="fa-solid fa-rocket mr-2"></i> À la recherche d'un stage de 6 mois (Immédiat)
             </p>
             <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#projets" class="w-full sm:w-auto bg-primary hover:bg-cyan-400 text-white font-semibold py-3 px-6 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all transform hover:-translate-y-1">
-                    Voir mes projets
-                </a>
+                <a href="#projets" class="w-full sm:w-auto bg-primary hover:bg-cyan-400 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:-translate-y-1">Voir mes projets</a>
                 <a href="CV_Fabrice_TOUKAM_POUALEU.pdf" download class="w-full sm:w-auto bg-card hover:bg-slate-700 text-white border border-slate-600 font-semibold py-3 px-6 rounded-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
                     <i class="fa-solid fa-file-pdf mr-2 text-primary"></i> Télécharger mon CV
                 </a>
@@ -110,123 +146,76 @@
         </div>
     </section>
 
-    <!-- Section À propos -->
-    <section id="a-propos" class="page-section hidden pt-28 pb-20 bg-card border-y border-slate-800 min-h-screen">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SECTION À PROPOS -->
+    <section id="a-propos" class="page-section hidden pt-28 pb-20 border-y border-slate-800">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 content-layer">
             <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-12 drop-shadow-md">À propos de moi</h2>
             <div class="flex flex-col gap-16">
                 <div class="grid md:grid-cols-3 gap-12 items-center">
-                    <div class="md:col-span-1 bg-dark border border-slate-700 rounded-2xl flex items-center justify-center text-gray-500 overflow-hidden shadow-inner hover:border-primary/50 transition-colors relative group mx-auto md:mx-0 w-full max-w-[350px] md:max-w-none">
-                        <img src="photo_fabrice.jpg" alt="Fabrice TOUKAM POUALEU" class="w-full h-auto max-h-[500px] md:max-h-[600px] object-contain block" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="hidden text-center py-20">
-                            <i class="fa-solid fa-shield-halved text-6xl text-primary mb-4 drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"></i>
-                            <p class="font-medium text-gray-400">Photo de Fabrice</p>
-                        </div>
+                    <div class="md:col-span-1 bg-dark border border-slate-700 rounded-2xl flex items-center justify-center text-gray-500 overflow-hidden shadow-inner hover:border-primary/50 transition-colors relative mx-auto md:mx-0 w-full max-w-[350px] md:max-w-none">
+                        <img src="photo_fabrice.jpg" alt="Fabrice TOUKAM POUALEU" class="w-full h-auto max-h-[600px] object-contain block" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="hidden text-center py-20"><i class="fa-solid fa-shield-halved text-6xl text-primary mb-4"></i><p class="font-medium text-gray-400">Photo de Fabrice</p></div>
                     </div>
                     <div class="md:col-span-2">
                         <h3 class="text-xl md:text-2xl font-semibold mb-6 text-primary flex items-center"><i class="fa-solid fa-book-open mr-3"></i> Mon histoire</h3>
                         <div class="space-y-4 text-gray-400 leading-relaxed text-justify text-sm md:text-base">
-                            <p>
-                                Passionné par l'univers du numérique depuis mes premiers pas en informatique, j'ai rapidement compris que l'innovation technologique n'a de sens que si elle est maîtrisée et sécurisée. J'ai donc construit mon parcours étape par étape : de mes débuts "les mains dans le cambouis" en administration réseaux jusqu'à l'ingénierie avancée en cybersécurité.
-                            </p>
-                            <p>
-                                Aujourd'hui, j'évolue à la croisée de deux mondes. D'un côté, <strong>l'expertise technique pure</strong> (architectures complexes, firewalls Fortinet, sécurité Cloud & IoT, Pentest). De l'autre, <strong>la vision stratégique et managériale</strong> apportée par ma spécialisation en Business Unit Management.
-                            </p>
-                            <p>
-                                Cette double casquette fait de moi plus qu'un simple profil technique : je suis un véritable partenaire capable de <strong>piloter des projets IT de bout en bout</strong> (structuration, OBS/WBS, gestion des risques) et de traduire les vulnérabilités informatiques en enjeux métiers clairs. Mon but ? Accompagner sereinement la transformation digitale des organisations en alliant performance technique, rigueur managériale et viabilité stratégique.
-                            </p>
+                            <p>Passionné par l'univers du numérique depuis mes premiers pas en informatique, j'ai rapidement compris que l'innovation technologique n'a de sens que si elle est maîtrisée et sécurisée. J'ai donc construit mon parcours étape par étape : de mes débuts "les mains dans le cambouis" en administration réseaux jusqu'à l'ingénierie avancée en cybersécurité.</p>
+                            <p>Aujourd'hui, j'évolue à la croisée de deux mondes. D'un côté, <strong>l'expertise technique pure</strong> (architectures complexes, firewalls Fortinet, sécurité Cloud & IoT, Pentest). De l'autre, <strong>la vision stratégique et managériale</strong> apportée par ma spécialisation en Business Unit Management.</p>
+                            <p>Cette double casquette fait de moi plus qu'un simple profil technique : je suis un véritable partenaire capable de <strong>piloter des projets IT de bout en bout</strong> (structuration, OBS/WBS, gestion des risques) et de traduire les vulnérabilités informatiques en enjeux métiers clairs. Mon but ? Accompagner sereinement la transformation digitale des organisations en alliant performance technique, rigueur managériale et viabilité stratégique.</p>
                         </div>
                     </div>
                 </div>
-
                 <div>
                     <h3 class="text-xl md:text-2xl font-semibold mb-8 text-center text-white drop-shadow-md">Mes Domaines d'Expertise</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Bloc 1 -->
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700 hover:border-primary/50 transition-all flex flex-col">
-                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20">
-                                <i class="fa-solid fa-chess-knight text-xl"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-white mb-3">Conseil & Gouvernance</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-primary/20 text-cyan-300 border border-primary/40 rounded-md">Gestion de Projet IT (OBS, WBS)</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Business Unit Management</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Stratégie Cybersécurité</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Analyse des Risques</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Conformité RGPD & ISO 27001</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Gestion de Crise</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Analyse d'Architecture SI</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Rédaction technique</span>
-                            </div>
-                        </div>
-                        <!-- Bloc 2 -->
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700 hover:border-primary/50 transition-all flex flex-col">
-                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20">
-                                <i class="fa-solid fa-user-secret text-xl"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-white mb-3">Cyber Offensive & Défensive</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Pentest (Nmap, Metasploit, Burp Suite)</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Audit de Sécurité</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Cloud Security</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Sécurité IoT / Industrie 4.0</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Supervision & Détection</span>
-                            </div>
-                        </div>
-                        <!-- Bloc 3 -->
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700 hover:border-primary/50 transition-all flex flex-col">
-                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20">
-                                <i class="fa-solid fa-network-wired text-xl"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-white mb-3">Outils, Systèmes & Réseaux</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Fortinet & Stormshield</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Architecture Avancée (CCNP)</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Docker & VMware</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Windows / Linux Server</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">SD-WAN / MPLS / VPN</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">TCP/IP, DNS, DHCP, Samba</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Active Directory & GPO</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">IPS/IDS, ACL & Wireshark</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Edge computing</span>
-                            </div>
-                        </div>
-                        <!-- Bloc 4 -->
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700 hover:border-primary/50 transition-all flex flex-col">
-                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20">
-                                <i class="fa-solid fa-laptop-code text-xl"></i>
-                            </div>
-                            <h4 class="text-lg font-bold text-white mb-3">Programmation & Intelligence Artificielle</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Python & C#</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">JavaScript & HTML</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">BASH & Scripting</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Développement d'API</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-primary/20 text-cyan-300 border border-primary/40 rounded-md">Machine Learning</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-primary/20 text-cyan-300 border border-primary/40 rounded-md">Federated Learning</span>
-                                <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">TensorFlow</span>
-                            </div>
-                        </div>
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 flex flex-col"><div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20"><i class="fa-solid fa-chess-knight text-xl"></i></div><h4 class="text-lg font-bold text-white mb-3">Conseil & Gouvernance</h4><div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-primary/20 text-cyan-300 border border-primary/40 rounded-md">Gestion de Projet IT (OBS, WBS)</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Business Unit Management</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Stratégie Cybersécurité</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Analyse des Risques</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">ISO 27001 & RGPD</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Gestion de Crise</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Analyse d'Architecture SI</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Rédaction technique</span>
+                        </div></div>
+                        <div class="bg-dark p-6 rounded-xl border border-slate-700 flex flex-col"><div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-3 border border-primary/20"><i class="fa-solid fa-user-secret text-xl"></i></div><h4 class="text-lg font-bold text-white mb-3">Cyber Offensive & Défensive</h4><div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Pentest (Nmap, Metasploit, Burp Suite)</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Audit de Sécurité</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Cloud Security</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Sécurité IoT / Industrie 4.0</span>
+                            <span class="text-xs font-medium px-2.5 py-1.5 bg-card text-gray-300 border border-slate-600 rounded-md">Supervision & Détection</span>
+                        </div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Expériences -->
-    <section id="experiences" class="page-section hidden pt-28 pb-20 bg-dark min-h-screen">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SECTION EXPÉRIENCES -->
+    <section id="experiences" class="page-section hidden pt-28 pb-20 bg-dark">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 content-layer">
             <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-6 drop-shadow-md">Mon Expérience Professionnelle</h2>
-            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed">
-                Mon parcours reflète une évolution logique et maîtrisée : d'abord ancré dans le déploiement et l'administration d'infrastructures réseaux complexes, j'ai progressivement étendu mon expertise vers la cybersécurité opérationnelle et la gouvernance. Chaque mission a forgé ma capacité à protéger les systèmes critiques face aux menaces actuelles.
-            </p>
+            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed">Mon parcours reflète une évolution logique et maîtrisée : d'abord ancré dans le déploiement et l'administration d'infrastructures réseaux complexes, j'ai progressivement étendu mon expertise vers la cybersécurité opérationnelle et la gouvernance. Chaque mission a forgé ma capacité à protéger les systèmes critiques face aux menaces actuelles.</p>
             <div class="border-l-2 border-primary/30 pl-6 md:pl-8 space-y-10 relative ml-2 md:ml-0">
-                <!-- Expérience 1 -->
                 <div class="relative group">
-                    <div class="absolute -left-[33px] md:-left-[41px] bg-primary text-dark w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark shadow-[0_0_10px_rgba(6,182,212,0.6)]">
-                        <i class="fa-solid fa-shield-halved text-[10px] md:text-xs"></i>
-                    </div>
-                    <div class="bg-card p-6 rounded-xl border border-slate-700 hover:border-primary/50 transition-all">
+                    <div class="absolute -left-[33px] md:-left-[41px] bg-primary text-dark w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark shadow-[0_0_10px_rgba(6,182,212,0.6)]"><i class="fa-solid fa-shield-halved text-[10px] md:text-xs"></i></div>
+                    <div class="bg-card/90 p-6 rounded-xl border border-slate-700">
                         <span class="text-xs md:text-sm font-semibold text-primary mb-1 block">Depuis Sept. 2025 | Paris</span>
                         <h3 class="text-lg md:text-xl font-bold text-white">Administrateur firewall Projet Cybersécurité</h3>
                         <h4 class="text-sm md:text-md font-medium text-gray-400 mb-4">LINEACT</h4>
@@ -238,12 +227,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Expérience 2 -->
                 <div class="relative group">
-                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-primary w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark">
-                        <i class="fa-solid fa-microchip text-[10px] md:text-xs"></i>
-                    </div>
-                    <div class="bg-card p-6 rounded-xl border border-slate-700">
+                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-primary w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark"><i class="fa-solid fa-microchip text-[10px] md:text-xs"></i></div>
+                    <div class="bg-card/90 p-6 rounded-xl border border-slate-700">
                         <span class="text-xs md:text-sm font-semibold text-primary mb-1 block">Fév. 2025 - Juin 2025 | Paris</span>
                         <h3 class="text-lg md:text-xl font-bold text-white">Stagiaire IoT, Sécurité Edge & Industrie 4.0</h3>
                         <h4 class="text-sm md:text-md font-medium text-gray-400 mb-4">LINEACT</h4>
@@ -254,12 +240,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Expérience 3 -->
                 <div class="relative group">
-                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-primary w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark">
-                        <i class="fa-solid fa-server text-[10px] md:text-xs"></i>
-                    </div>
-                    <div class="bg-card p-6 rounded-xl border border-slate-700">
+                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-primary w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark"><i class="fa-solid fa-server text-[10px] md:text-xs"></i></div>
+                    <div class="bg-card/90 p-6 rounded-xl border border-slate-700">
                         <span class="text-xs md:text-sm font-semibold text-primary mb-1 block">Juil. 2023 - Août 2024 | Douala</span>
                         <h3 class="text-lg md:text-xl font-bold text-white">Administrateur Système et Réseaux</h3>
                         <h4 class="text-sm md:text-md font-medium text-gray-400 mb-4">3T - TOUT TRANSIT TRANSPORT</h4>
@@ -270,12 +253,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Expérience 4 -->
                 <div class="relative group">
-                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-gray-500 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark">
-                        <i class="fa-solid fa-network-wired text-[10px] md:text-xs"></i>
-                    </div>
-                    <div class="bg-card p-6 rounded-xl border border-slate-700">
+                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-gray-500 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark"><i class="fa-solid fa-network-wired text-[10px] md:text-xs"></i></div>
+                    <div class="bg-card/90 p-6 rounded-xl border border-slate-700">
                         <span class="text-xs md:text-sm font-semibold text-primary mb-1 block">Fév. 2023 - Juin 2023 | Douala</span>
                         <h3 class="text-lg md:text-xl font-bold text-white">Stagiaire Administrateur Réseaux</h3>
                         <h4 class="text-sm md:text-md font-medium text-gray-400 mb-4">3T - TOUT TRANSIT TRANSPORT</h4>
@@ -286,12 +266,9 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Expérience 5 -->
                 <div class="relative group">
-                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-gray-600 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark">
-                        <i class="fa-solid fa-plug text-[10px] md:text-xs"></i>
-                    </div>
-                    <div class="bg-card p-6 rounded-xl border border-slate-700">
+                    <div class="absolute -left-[33px] md:-left-[41px] bg-card text-gray-600 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-dark"><i class="fa-solid fa-plug text-[10px] md:text-xs"></i></div>
+                    <div class="bg-card/90 p-6 rounded-xl border border-slate-700">
                         <span class="text-xs md:text-sm font-semibold text-primary mb-1 block">Juin 2021 - Août 2021 | Douala</span>
                         <h3 class="text-lg md:text-xl font-bold text-white">Stagiaire Technicien Réseaux Informatique</h3>
                         <h4 class="text-sm md:text-md font-medium text-gray-400 mb-4">Institut Universitaire de la Côte</h4>
@@ -306,99 +283,47 @@
         </div>
     </section>
 
-    <!-- Section Formations -->
-    <section id="formations" class="page-section hidden pt-28 pb-20 bg-card border-y border-slate-800 min-h-screen">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SECTION FORMATIONS -->
+    <section id="formations" class="page-section hidden pt-28 pb-20 bg-card">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1454165833968-5179399952d4?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 content-layer">
             <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-6 drop-shadow-md">Formations & Certifications</h2>
-            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed">
-                Convaincu que la cybersécurité moderne exige une maîtrise technique de pointe alliée à une vision globale, j'ai bâti un parcours hybride associant expertise technique pointue et vision stratégique BUM.
-            </p>
+            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed px-4">Convaincu que la cybersécurité moderne exige une maîtrise technique de pointe alliée à une vision globale, j'ai bâti un parcours hybride associant expertise technique pointue et vision stratégique BUM.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Diplômes -->
-                <div>
+                <div class="space-y-6">
                     <h3 class="text-xl md:text-2xl font-semibold mb-6 text-primary flex items-center"><i class="fa-solid fa-graduation-cap mr-3"></i> Diplômes</h3>
                     <div class="space-y-6">
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700">
+                        <div class="bg-dark/90 p-6 rounded-xl border border-slate-700">
                             <span class="text-xs md:text-sm font-semibold text-gray-500 mb-1 block">Sept. 2025 - Juil. 2026 | Paris</span>
-                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30">
-                                <a href="https://www.cesi.fr/" target="_blank" class="hover:text-primary transition-colors">CESI École d’Ingénieurs</a>
-                            </h4>
+                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30"><a href="https://www.cesi.fr/" target="_blank" class="hover:text-primary transition-colors">CESI École d’Ingénieurs</a></h4>
                             <p class="text-primary text-sm font-medium mb-3">Ingénieur Cybersécurité et BUM</p>
-                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3">
-                                <strong class="text-gray-300">Focus stratégique :</strong> Double compétence alliant l'expertise technique (sécurité cloud, IoT, IA) au pilotage stratégique (gouvernance, ISO 27001, analyse de risques et gestion de crise).
-                            </p>
+                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3"><strong>Focus stratégique :</strong> Double compétence alliant l'expertise technique (sécurité cloud, IoT, IA) au pilotage stratégique (gouvernance, ISO 27001, analyse de risques et gestion de crise).</p>
                         </div>
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700">
+                        <div class="bg-dark/90 p-6 rounded-xl border border-slate-700">
                             <span class="text-xs md:text-sm font-semibold text-gray-500 mb-1 block">Sept. 2023 - Août 2024 | Douala</span>
-                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30">
-                                <a href="https://enspd-udo.cm/" target="_blank" class="hover:text-primary">École Nationale Supérieure Polytechnique de Douala</a>
-                            </h4>
+                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30"><a href="https://enspd-udo.cm/" target="_blank" class="hover:text-primary">École Nationale Supérieure Polytechnique de Douala</a></h4>
                             <p class="text-primary text-sm font-medium italic">Master 1 Cybersécurité & Cyberdéfense</p>
-                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3">
-                                <strong class="text-gray-300">Focus stratégique :</strong> Approfondissement des concepts avancés de cyberdéfense, d'audit de sécurité, de cryptographie et de protection des infrastructures critiques.
-                            </p>
-                        </div>
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700">
-                            <span class="text-xs md:text-sm font-semibold text-gray-500 mb-1 block">Sept. 2022 - Juil. 2023 | Douala</span>
-                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30">
-                                <a href="https://myiuc.com/" target="_blank" class="hover:text-primary">Institut Universitaire de la Côte</a>
-                            </h4>
-                            <p class="text-primary text-sm font-medium italic">Licence Pro. Administration et Sécurité des Réseaux</p>
-                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3">
-                                <strong class="text-gray-300">Focus stratégique :</strong> Spécialisation opérationnelle dans le déploiement, l'administration système (Windows/Linux) et la sécurisation des architectures réseaux d'entreprise.
-                            </p>
-                        </div>
-                        <div class="bg-dark p-6 rounded-xl border border-slate-700">
-                            <span class="text-xs md:text-sm font-semibold text-gray-500 mb-1 block">Oct. 2020 - Juil. 2022 | Douala</span>
-                            <h4 class="text-md md:text-lg font-bold text-white underline decoration-primary/30">
-                                <a href="https://myiuc.com/" target="_blank" class="hover:text-primary">Institut Universitaire de la Côte</a>
-                            </h4>
-                            <p class="text-primary text-sm font-medium italic">BTS Réseaux et Sécurité Informatique</p>
-                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3">
-                                <strong class="text-gray-300">Focus stratégique :</strong> Maîtrise des fondamentaux de l'informatique, de l'architecture LAN/WAN et implémentation des premiers remparts de sécurité (pare-feu, routeurs).
-                            </p>
+                            <p class="text-xs md:text-sm text-gray-400 border-t border-slate-700 pt-3"><strong>Focus stratégique :</strong> Approfondissement des concepts avancés de cyberdéfense, d'audit de sécurité, de cryptographie et de protection des infrastructures critiques.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Certifications -->
                 <div class="space-y-6">
                     <h3 class="text-xl md:text-2xl font-semibold mb-6 text-primary flex items-center"><i class="fa-solid fa-certificate mr-3"></i> Certifications</h3>
                     <div class="space-y-4">
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-award text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">Analyste junior cybersécurité</h4><p class="text-[9px] text-gray-500">Cisco Academy</p></div>
-                            </div>
-                            <a href="cert_cisco_junior.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary hover:text-dark px-3 py-1 rounded-full border border-slate-600 transition-all flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
+                        <div class="bg-dark/90 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center"><i class="fa-solid fa-award text-primary mr-3 text-lg"></i><div><h4 class="text-xs md:text-sm font-bold text-white">CCNP : Routage avancé</h4><p class="text-[9px] text-gray-500">Cisco Academy</p></div></div>
+                            <a href="cert_cisco_ccnp.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary px-3 py-1 rounded-full border border-slate-600 transition-all flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
                         </div>
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-award text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">Hacker éthique</h4><p class="text-[9px] text-gray-500">Cisco Academy</p></div>
-                            </div>
-                            <a href="cert_cisco_hacker.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary hover:text-dark px-3 py-1 rounded-full border border-slate-600 flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
-                        </div>
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-award text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">CyberOps Analyst</h4><p class="text-[9px] text-gray-500">Cisco Academy</p></div>
-                            </div>
-                            <a href="cert_cisco_cyberops.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary hover:text-dark px-3 py-1 rounded-full border border-slate-600 flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
-                        </div>
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-award text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">CCNP : Routage avancé</h4><p class="text-[9px] text-gray-500">Cisco Academy</p></div>
-                            </div>
-                            <a href="cert_cisco_ccnp.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary hover:text-dark px-3 py-1 rounded-full border border-slate-600 flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
-                        </div>
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-shield-halved text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">Fortinet NSE 1, 2, 3</h4><p class="text-[9px] text-gray-500">Fortinet</p></div>
-                            </div>
-                            <a href="cert_fortinet_nse123.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary px-3 py-1 rounded-full border border-slate-600 flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
-                        </div>
-                        <div class="bg-dark p-4 rounded-xl border border-slate-700 flex items-center justify-between">
-                            <div class="flex items-center"><i class="fa-solid fa-shield-halved text-primary mr-3 text-lg"></i>
-                                <div><h4 class="text-xs md:text-sm font-bold text-white">Fortinet NSE 4</h4><p class="text-[9px] text-gray-500">Fortinet</p></div>
-                            </div>
-                            <a href="cert_fortinet_nse4.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary px-3 py-1 rounded-full border border-slate-600 flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
+                        <div class="bg-dark/90 p-4 rounded-xl border border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center"><i class="fa-solid fa-shield-halved text-primary mr-3 text-lg"></i><div><h4 class="text-xs md:text-sm font-bold text-white">Fortinet NSE 4</h4><p class="text-[9px] text-gray-500">Fortinet</p></div></div>
+                            <a href="cert_fortinet_nse4.pdf" target="_blank" class="text-[9px] md:text-[10px] bg-slate-800 hover:bg-primary px-3 py-1 rounded-full border border-slate-600 transition-all flex items-center"><i class="fa-solid fa-file-pdf mr-1"></i> Certificat</a>
                         </div>
                     </div>
                 </div>
@@ -406,91 +331,63 @@
         </div>
     </section>
 
-    <!-- Section Projets -->
-    <section id="projets" class="page-section hidden pt-28 pb-20 bg-dark min-h-screen">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SECTION PROJETS -->
+    <section id="projets" class="page-section hidden pt-28 pb-20 bg-dark">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 content-layer">
             <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-6 drop-shadow-md">Mes Projets & Réalisations</h2>
-            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed px-4">
-                La réussite d'un projet technologique complexe repose autant sur l'expertise technique que sur une <strong>gestion de projet rigoureuse</strong> (WBS, OBS, gestion des risques et des jalons) afin de garantir une exécution fluide, respectant les délais et parfaitement alignée avec les objectifs "Business".
-            </p>
+            <p class="text-center text-gray-400 max-w-3xl mx-auto mb-16 text-sm md:text-lg leading-relaxed px-4">La réussite d'un projet technologique complexe repose autant sur l'expertise technique que sur une <strong>gestion de projet rigoureuse</strong> (WBS, OBS, gestion des risques et des jalons) afin de garantir une exécution fluide, respectant les délais et parfaitement alignée avec les objectifs "Business".</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Projet 1 -->
-                <div class="bg-card rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
-                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700">
-                        <i class="fa-solid fa-network-wired text-4xl transform group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-5 flex-grow">
-                        <h3 class="font-bold text-white mb-2 text-md md:text-lg">Architecture & Sécurité Multisite</h3>
-                        <p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">
-                            Conception et optimisation d'infrastructures réseaux complexes pour entreprises internationales. Déploiement de solutions <strong>SD-WAN, MPLS et VPN</strong>, couplées à la mise en place de pare-feux en haute disponibilité (<strong>HA-Fortinet</strong>). Intégration de services critiques comme la VoIP inter-sites (OSPF, QoS) sécurisés par des listes de contrôle d'accès (ACL) sur du matériel Cisco.
-                        </p>
-                    </div>
+                <div class="bg-card/90 rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
+                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700"><i class="fa-solid fa-network-wired text-4xl transform group-hover:scale-110 transition-transform"></i></div>
+                    <div class="p-5 flex-grow"><h3 class="font-bold text-white mb-2 text-md md:text-lg">Architecture & Sécurité Multisite</h3><p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">Conception et optimisation d'infrastructures réseaux complexes intégrant <strong>SD-WAN, MPLS et VPN</strong>, avec pare-feux <strong>HA-Fortinet</strong> et VoIP Cisco sécurisée.</p></div>
                 </div>
-                <!-- Projet 2 -->
-                <div class="bg-card rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
-                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700">
-                        <i class="fa-solid fa-industry text-4xl transform group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-5 flex-grow">
-                        <h3 class="font-bold text-white mb-2 text-md md:text-lg">Sécurité & Industrie 4.0</h3>
-                        <p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">
-                            Projet de recherche et d'optimisation du <strong>Federated Learning</strong> (Apprentissage Fédéré) appliqué au secteur de l'Industrie 4.0. L'objectif était d'exploiter la puissance du <strong>Edge Computing</strong> pour déporter les calculs de l'Intelligence Artificielle au plus près des machines, tout en garantissant un niveau de sécurité maximal et la confidentialité stricte des données industrielles.
-                        </p>
-                    </div>
+                <div class="bg-card/90 rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
+                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700"><i class="fa-solid fa-industry text-4xl transform group-hover:scale-110 transition-transform"></i></div>
+                    <div class="p-5 flex-grow"><h3 class="font-bold text-white mb-2 text-md md:text-lg">Sécurité & Industrie 4.0</h3><p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">Projet de recherche sur l'optimisation du <strong>Federated Learning</strong> via le <strong>Edge Computing</strong> pour déporter les calculs IA tout en garantissant la confidentialité des données industrielles.</p></div>
                 </div>
-                <!-- Projet 3 -->
-                <div class="bg-card rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
-                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700">
-                        <i class="fa-solid fa-brain text-4xl transform group-hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="p-5 flex-grow">
-                        <h3 class="font-bold text-white mb-2 text-md md:text-lg">Modèle d'IA RH & Management</h3>
-                        <p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">
-                            Conception d’un modèle d'Intelligence Artificielle prédictif ciblant la <strong>rétention des talents</strong>. En m'appuyant sur l’analyse de données de Ressources Humaines et l’entraînement d’algorithmes supervisés, ce projet a permis d'identifier les facteurs clés de fidélisation en entreprise. Une parfaite illustration de la mise au service de la Data pour répondre à des enjeux vitaux de Business Unit.
-                        </p>
-                    </div>
+                <div class="bg-card/90 rounded-xl border border-slate-700 overflow-hidden hover:border-primary/50 transition-all flex flex-col group">
+                    <div class="h-40 bg-slate-800 flex items-center justify-center text-primary border-b border-slate-700"><i class="fa-solid fa-brain text-4xl transform group-hover:scale-110 transition-transform"></i></div>
+                    <div class="p-5 flex-grow"><h3 class="font-bold text-white mb-2 text-md md:text-lg">Modèle d'IA RH & Management</h3><p class="text-xs md:text-sm text-gray-400 leading-relaxed text-justify">Conception d’un modèle d'IA prédictif ciblant la <strong>rétention des talents</strong> basé sur l’analyse de données RH stratégiques et l’entraînement d’algorithmes supervisés.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section Contact -->
-    <section id="contact" class="page-section hidden pt-28 pb-20 bg-card border-t border-slate-800 min-h-screen">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- SECTION CONTACT -->
+    <section id="contact" class="page-section hidden pt-28 pb-20 bg-card">
+        <div class="bg-slider-container">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1496065187959-7f07b8353c55?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center content-layer">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-8">Me contacter</h2>
             <p class="text-md md:text-lg text-gray-400 mb-8 px-4">Stage de 6 mois (Immédiat) - Île-de-France (Champigny-sur-Marne).</p>
             <div class="flex justify-center gap-6 mb-12 flex-wrap px-4">
-                <a href="mailto:leonel.toukam@icloud.com" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors">
-                    <div class="w-12 h-12 bg-dark border border-slate-700 rounded-full flex items-center justify-center mb-2 hover:border-primary transition-all shadow-sm"><i class="fa-regular fa-envelope text-xl"></i></div>
-                    <span class="text-[10px] md:text-xs font-medium">Email</span>
-                </a>
-                <a href="https://linkedin.com/in/fabrice-leonel-toukam-poualeu-b47b8425a" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors">
-                    <div class="w-12 h-12 bg-dark border border-slate-700 rounded-full flex items-center justify-center mb-2 hover:border-primary transition-all shadow-sm"><i class="fa-brands fa-linkedin-in text-xl"></i></div>
-                    <span class="text-[10px] md:text-xs font-medium">LinkedIn</span>
-                </a>
-                <div class="flex flex-col items-center text-gray-400">
-                    <div class="w-12 h-12 bg-dark border border-slate-700 rounded-full flex items-center justify-center mb-2"><i class="fa-solid fa-phone text-xl"></i></div>
-                    <span class="text-[10px] md:text-xs text-gray-200 font-medium">07 64 81 31 49</span>
-                </div>
+                <a href="mailto:leonel.toukam@icloud.com" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors"><div class="w-12 h-12 bg-dark/90 border border-slate-700 rounded-full flex items-center justify-center mb-2 hover:border-primary transition-all"><i class="fa-regular fa-envelope text-xl"></i></div><span class="text-[10px] md:text-xs">Email</span></a>
+                <a href="https://linkedin.com/in/fabrice-leonel-toukam-poualeu-b47b8425a" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-primary transition-colors"><div class="w-12 h-12 bg-dark/90 border border-slate-700 rounded-full flex items-center justify-center mb-2 hover:border-primary transition-all"><i class="fa-brands fa-linkedin-in text-xl"></i></div><span class="text-[10px] md:text-xs">LinkedIn</span></a>
+                <div class="flex flex-col items-center text-gray-400"><div class="w-12 h-12 bg-dark/90 border border-slate-700 rounded-full flex items-center justify-center mb-2"><i class="fa-solid fa-phone text-xl"></i></div><span class="text-[10px] md:text-xs text-gray-200">07 64 81 31 49</span></div>
             </div>
-            <form action="https://formsubmit.co/leonel.toukam@icloud.com" method="POST" class="text-left bg-dark p-6 rounded-xl border border-slate-700 shadow-xl max-w-xl mx-auto mx-4">
-                <input type="hidden" name="_subject" value="Nouveau contact Portfolio">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm shadow-sm" placeholder="Votre nom">
-                    <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm shadow-sm" placeholder="Votre email">
-                </div>
-                <textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm mb-4 shadow-sm" placeholder="Votre message..."></textarea>
-                <button type="submit" class="w-full bg-primary hover:bg-cyan-400 text-dark font-bold py-3 px-4 rounded-lg transition-all transform hover:-translate-y-1 text-sm shadow-lg">Envoyer le message</button>
-            </form>
+            <form action="https://formsubmit.co/leonel.toukam@icloud.com" method="POST" class="text-left bg-dark/90 p-6 rounded-xl border border-slate-700 shadow-xl max-w-xl mx-auto"><input type="hidden" name="_subject" value="Nouveau contact Portfolio"><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"><input type="text" name="name" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm shadow-sm" placeholder="Votre nom"><input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm shadow-sm" placeholder="Votre email"></div><textarea name="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white outline-none focus:border-primary text-sm mb-4 shadow-sm" placeholder="Votre message..."></textarea><button type="submit" class="w-full bg-primary hover:bg-cyan-400 text-dark font-bold py-3 px-4 rounded-lg transition-all transform hover:-translate-y-1 text-sm shadow-lg">Envoyer le message</button></form>
         </div>
     </section>
 
     <!-- Pied de page -->
-    <footer class="bg-[#020617] text-white py-6 text-center border-t border-slate-800 px-4">
+    <footer class="bg-[#020617] text-white py-6 text-center border-t border-slate-800 px-4 relative z-50">
         <p class="text-gray-500 text-[10px] md:text-xs uppercase tracking-widest">&copy; 2026 Fabrice TOUKAM POUALEU. Propulsé par la Cybersécurité.</p>
     </footer>
 
-    <!-- Script de navigation -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.page-section');
@@ -537,6 +434,22 @@
 
             const hash = window.location.hash.substring(1);
             if (hash) { showSection(hash); }
+
+            // --- LOGIQUE DU SLIDER MULTI-SECTION ---
+            function startSliders() {
+                sections.forEach(section => {
+                    const slides = section.querySelectorAll('.slide');
+                    if (slides.length > 0) {
+                        let current = 0;
+                        setInterval(() => {
+                            slides[current].classList.remove('active');
+                            current = (current + 1) % slides.length;
+                            slides[current].classList.add('active');
+                        }, 5000); // 5 secondes par image
+                    }
+                });
+            }
+            startSliders();
         });
     </script>
 </body>
